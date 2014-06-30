@@ -1,8 +1,17 @@
 import vtkAll as vtk
-from ddapp import botpy
 import math
 import numpy as np
-import drc as lcmdrc
+
+try:
+    from ddapp import botpy
+except ImportError:
+    pass
+
+try:
+    import drc as lcmdrc
+except ImportError:
+    pass
+
 
 
 def getTransformFromNumpy(mat):

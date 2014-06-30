@@ -10,34 +10,34 @@ import PythonQt
 from PythonQt import QtCore, QtGui
 import ddapp.applogic as app
 from ddapp import objectmodel as om
-from ddapp import perception
-from ddapp import lcmUtils
-from ddapp import roboturdf
+#from ddapp import perception
+#from ddapp import lcmUtils
+#from ddapp import roboturdf
 from ddapp import transformUtils
 from ddapp import visualization as vis
 from ddapp.transformUtils import getTransformFromAxes
 from ddapp.timercallback import TimerCallback
-from ddapp import mapsregistrar
-from ddapp.affordanceitems import *
+#from ddapp import mapsregistrar
+#from ddapp.affordanceitems import *
 from ddapp.visualization import *
 from ddapp.filterUtils import *
 from ddapp.fieldcontainer import FieldContainer
 from ddapp.segmentationroutines import *
-from ddapp import cameraview
+#from ddapp import cameraview
 
 import numpy as np
 import vtkNumpy
 from debugVis import DebugData
 from shallowCopy import shallowCopy
-import affordance
+#import affordance
 import ioUtils
 
 
-import drc as lcmdrc
-import bot_core as lcmbotcore
+#import drc as lcmdrc
+#import bot_core as lcmbotcore
 
-import vs as lcmvs
-from ddapp import lcmUtils
+#import vs as lcmvs
+#from ddapp import lcmUtils
 
 
 DRILL_TRIANGLE_BOTTOM_LEFT = 'bottom left'

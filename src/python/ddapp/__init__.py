@@ -23,10 +23,10 @@ def findFileInPaths(filename, searchPaths):
 
 def _locateExternals():
     baseDir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../..'))
-    for path in ['', '..']:
-        externals = os.path.join(baseDir, path, 'externals/pod-build/src')
-        if os.path.isdir(externals):
-            return externals
+    for path in ['', 'externals/pod-build/src', '../externals/pod-build/src']:
+        expectedDir = os.path.join(baseDir, path, 'PythonQt-build')
+        if os.path.isdir(expectedDir):
+            return os.path.join(baseDir, path)
     raise Exception('Failed to locate externals dir.')
 
 

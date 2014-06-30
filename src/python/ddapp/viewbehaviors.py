@@ -3,17 +3,17 @@ from PythonQt import QtCore, QtGui
 import re
 import ddapp.objectmodel as om
 import ddapp.visualization as vis
-from ddapp import lcmUtils
+#from ddapp import lcmUtils
 from ddapp import cameracontrol
 from ddapp import propertyset
 from ddapp import splinewidget
 from ddapp import transformUtils
-from ddapp import teleoppanel
-from ddapp import footstepsdriverpanel
+#from ddapp import teleoppanel
+#from ddapp import footstepsdriverpanel
 from ddapp import applogic as app
 from ddapp import vtkAll as vtk
 from ddapp.shallowCopy import shallowCopy
-from ddapp import segmentationpanel
+#from ddapp import segmentationpanel
 from ddapp import segmentation
 import numpy as np
 
@@ -583,7 +583,7 @@ class ViewBehaviors(object):
         self.view = view
         self.keyEventFilter = KeyEventFilter(view)
         self.mouseEventFilter = ViewEventFilter(view)
-        self.logCommander = KeyPressLogCommander(view.vtkWidget())
+        #self.logCommander = KeyPressLogCommander(view.vtkWidget())
 
     @staticmethod
     def addRobotBehaviors(_robotModel=None, _handFactory=None, _footstepsDriver=None):
