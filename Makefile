@@ -23,7 +23,7 @@ BUILD_TYPE="Release"
 endif
 
 all: pod-build/Makefile
-	$(MAKE) -C pod-build all install
+	$(MAKE) -C pod-build all
 
 pod-build/Makefile:
 	$(MAKE) configure
@@ -40,12 +40,15 @@ configure:
 		   -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
 		   -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
 		   -DCMAKE_PREFIX_PATH:PATH=$(BUILD_PREFIX) \
-		   -DDRAKE_DIR:PATH=$(BUILD_PREFIX)/../drake \
-		   -DUSE_DRC_MAPS:BOOL=ON \
-		   ..
+		   -DUSE_LCM:BOOL=ON \
+		   -DUSE_LIBBOT:BOOL=ON \
+		   -DUSE_SYSTEM_LCM:BOOL=ON \
+		   -DUSE_SYSTEM_LIBBOT:BOOL=ON \
+		   -DUSE_EXTERNAL_INSTALL:BOOL=ON \
+		   ../standalone/superbuild
 
 clean:
-	-if [ -e pod-build/install_manifest.txt ]; then rm -f `cat pod-build/install_manifest.txt`; fi
+	-if [ -d pod-build ]; then rm -f `find pod-build -name install_manifest.txt -print0 | xargs -0 -n1 cat`; fi
 	-if [ -d pod-build ]; then $(MAKE) -C pod-build clean; rm -rf pod-build; fi
 
 # other (custom) targets are passed through to the cmake-generated Makefile 

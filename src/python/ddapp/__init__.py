@@ -56,6 +56,6 @@ def _updateSysPath():
         if updateSysPath(path):
             continue
 
-
-_updateSysPath()
+updateSysPath('/usr/local/opt/vtk5/lib/python2.7/site-packages')
+#_updateSysPath()
 _initCoverage()
