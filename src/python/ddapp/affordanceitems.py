@@ -1,6 +1,6 @@
 import ddapp
 import ddapp.objectmodel as om
-from ddapp import affordance
+#from ddapp import affordance
 from ddapp import visualization as vis
 from ddapp.visualization import PolyDataItem
 from ddapp import filterUtils

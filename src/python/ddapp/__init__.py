@@ -27,7 +27,7 @@ def _locateExternals():
         externals = os.path.join(baseDir, path, 'externals/pod-build/src')
         if os.path.isdir(externals):
             return externals
-    raise Exception('Failed to locate externals dir.')
+    return None
 
 
 def updateSysPath(path):
@@ -45,6 +45,8 @@ def _updateSysPath():
                 ]
 
     baseDir = _locateExternals()
+    if not baseDir:
+        return
 
     searchPaths = [
       os.path.join(baseDir, 'PointCloudLibraryPlugin-build/lib'),
