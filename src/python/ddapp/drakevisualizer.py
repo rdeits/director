@@ -11,7 +11,10 @@ from ddapp.shallowCopy import shallowCopy
 from ddapp import vtkAll as vtk
 from ddapp import visualization as vis
 
-import drake as lcmdrake
+try
+    import lcmdrake
+except ImportError:
+    import drake as lcmdrake
 
 from PythonQt import QtGui
 
