@@ -3,6 +3,7 @@ import math
 import os
 import Queue
 import re
+import tempfile
 import time
 import warnings
 import numpy as np
@@ -128,7 +129,35 @@ class Geometry(object):
     def createMeshFromData(params):
         verts = np.asarray(params["vertices"])
         faces = np.asarray(params["faces"])
-        return [Geometry.createPolyDataFromMeshArrays(verts, faces)]
+        mesh = Geometry.createPolyDataFromMeshArrays(verts, faces)
+
+        if "texture" in params:
+            coords = np.asarray(params["texture"]["coordinates"])
+            mesh.GetPointData().SetTCoords(vnp.getVtkFromNumpy(coords))
+
+            texture_file, texture_filename = tempfile.mkstemp(suffix=".png")
+            with open(texture_filename, "wb") as f:
+                f.write(params["texture"]["png"])
+
+            s = vtk.vtkStringArray()
+            s.InsertNextValue(texture_filename)
+            s.SetName('texture_filename')
+            mesh.GetFieldData().AddArray(s)
+
+            Geometry.loadTextureForMesh(mesh, texture_filename)
+
+            # reader = vtk.vtkPNGReader()
+            # reader.SetMemoryBuffer(params["texture"]["png"])
+            # reader.SetMemoryBufferLength(len(params["texture"]["png"]))
+            # reader.Update()
+            # image = shallowCopy(reader.GetOutput())
+            # texture = vtk.vtkTexture()
+            # texture.SetInputData(image)
+            # texture.EdgeClampOn()
+            # texture.RepeatOn()
+            # mesh.actor.SetTexture(texture)
+
+        return [mesh]
 
     @staticmethod
     def createPointcloud(params):
@@ -380,6 +409,9 @@ class Geometry(object):
         else:
             self.color = DEFAULT_COLOR
 
+        self.texture = Geometry.TextureCache.get(
+            Geometry.getTextureFileName(self.polyData))
+
     def createPolyDataItem(self, name="geometry"):
         polyDataItem = vis.PolyDataItem(name, self.polyData, view=None)
         polyDataItem.setProperty("Point Size", 2)
@@ -390,9 +422,7 @@ class Geometry(object):
         polyDataItem._updateColorByProperty()
 
         polyDataItem.setProperty('Alpha', self.color[3])
-        polyDataItem.actor.SetTexture(
-            Geometry.TextureCache.get(
-                Geometry.getTextureFileName(self.polyData)))
+        polyDataItem.actor.SetTexture(self.texture)
 
         if polyDataItem.actor.GetTexture():
             polyDataItem.setProperty('Color',
