@@ -116,6 +116,10 @@ A ``mesh_data`` geometry encodes the entire mesh in the message itself..
 
 :vertices: the mesh vertices as a list of triplets in XYZ order. 
 :faces: a list of triplets describing the faces of the mesh. Each element in the list gives the indices (0-based) of three vertices which are joined as a triangular face. 
+:texture: (optional) a dictionary with texture information about the mesh. Texture fields are:
+
+:coordinates: a list of pairs of (u,v) texture coordinates
+:png: the texture as a PNG file (i.e. the file contents, not its path), encoded directly as a vector of bytes
 
 ------
 
